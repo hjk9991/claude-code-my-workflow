@@ -48,26 +48,21 @@ Repeat
 
 ---
 
-## Non-Negotiables (Customize These)
+## Non-Negotiables
 
-<!-- Replace with YOUR project's locked-in preferences -->
-
-- [YOUR PATH CONVENTION] (e.g., `here::here()` for R, relative paths for LaTeX)
-- [YOUR SEED CONVENTION] (e.g., `set.seed()` once at top for stochastic code)
-- [YOUR FIGURE STANDARDS] (e.g., white bg, 300 DPI, custom theme)
-- [YOUR COLOR PALETTE] (e.g., institutional colors)
-- [YOUR TOLERANCE THRESHOLDS] (e.g., 1e-6 for point estimates)
+- **Path convention:** All paths relative to project root — never hardcode `/Users/hj/...`
+- **Seed convention:** `set seed 20230101` in STATA; `rng(20230101, 'twister')` in MATLAB
+- **Figure standards:** AEA style — PDF vector output, no gridlines, no in-figure title, fonts ≥ 8pt, width ≤ 6.5in (full-page) or 3.5in (half-page); caption goes in LaTeX
+- **Tolerance thresholds:** GE convergence 1e-8 (MATLAB fixed-point); STATA coefficient precision 1e-6; welfare changes reported to 1e-4
 
 ---
 
 ## Preferences
 
-<!-- Fill in as you discover your working style -->
-
-**Visual:** [How you want figures/plots handled]
-**Reporting:** [Concise bullets? Detailed prose? Details on request?]
+**Visual:** AEA style — clean, minimal, publication-ready from first draft
+**Reporting:** Concise bullets; prose only when explaining model derivations
 **Session logs:** Always (post-plan, incremental, end-of-session)
-**Replication:** [How strict? Flag near-misses?]
+**Replication:** Strict — flag near-misses even within tolerance; investigate before closing
 
 ---
 

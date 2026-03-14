@@ -56,12 +56,35 @@ paths:
 Generated **only at merge time**. Use `templates/quality-report.md` for format.
 Save to `quality_reports/merges/YYYY-MM-DD_[branch-name].md`.
 
-## Tolerance Thresholds (Research)
+## STATA Scripts (.do)
 
-<!-- Customize for your domain -->
+| Severity | Issue | Deduction |
+|----------|-------|-----------|
+| Critical | Syntax error / abnormal exit | -100 |
+| Critical | Hardcoded absolute paths | -20 |
+| Critical | Missing `set seed` | -15 |
+| Major | Missing log file | -10 |
+| Major | Non-reproducible sample selection (undocumented drops) | -10 |
+| Major | `esttab` output doesn't match manuscript table | -10 |
+| Minor | No `assert` for data integrity checks | -3 |
+
+## MATLAB Scripts (.m)
+
+| Severity | Issue | Deduction |
+|----------|-------|-----------|
+| Critical | Runtime error | -100 |
+| Critical | Non-convergence without diagnostic flag | -20 |
+| Critical | Hardcoded absolute paths | -20 |
+| Major | Missing `rng()` seed | -15 |
+| Major | Missing convergence check or max-iteration guard | -10 |
+| Major | No `.mat` save between computation phases | -10 |
+| Minor | Column/row vector inconsistency (not caught by runtime) | -5 |
+
+## Tolerance Thresholds (Research)
 
 | Quantity | Tolerance | Rationale |
 |----------|-----------|-----------|
-| Point estimates | [e.g., 1e-6] | [Numerical precision] |
-| Standard errors | [e.g., 1e-4] | [MC variability] |
-| Coverage rates | [e.g., +/- 0.01] | [MC with B reps] |
+| GE convergence (MATLAB) | 1e-8 | Standard for fixed-point iteration |
+| STATA point estimates | 1e-6 | Rounding in paper display |
+| Standard errors | 1e-4 | Numerical precision |
+| Welfare changes (%) | 1e-4 | Economic significance threshold |
