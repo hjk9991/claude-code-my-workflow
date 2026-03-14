@@ -151,3 +151,27 @@ Check git log and quality_reports/plans/ for current state.
 ---
 **Context compaction (auto) at 23:48**
 Check git log and quality_reports/plans/ for current state.
+
+
+---
+**Context compaction (auto) at 17:34**
+Check git log and quality_reports/plans/ for current state.
+
+---
+**Session extension — 2026-03-14**
+
+Resumed session to continue workflow setup and draft update tasks.
+
+**Completed in this session:**
+
+1. Verified `matlab-code-conventions.md` was created and committed (was last missing piece from initial setup).
+2. Read STATA pipeline (`00_master.do`, `20_analyze_main_2sls.do`, `21_analyze_diagnostics.do`, `22_analyze_extensions.do`, `30_export_tables.do`) to trace output tables `table1`–`table6`.
+3. Analyzed 6 new output tables vs. existing tables in `main_MP_draft_June25.tex`.
+4. Created `draft_260314.tex` (1,364 lines) with all replacements and text updates:
+   - `table1_main_results.tex` replaces `table1_main_unstacked.tex` (4-col wrapper)
+   - `table3_stacked_panel.tex` replaces `table2_main_stacked.tex` (2-col wrapper)
+   - `table6_shock_level.tex` replaces `Industry_Main_Simple_2000.tex` (2-col wrapper)
+   - `table5_rotemberg_weights.tex` replaces `Top5_Rotemberg_Consolidated.tex` (direct swap)
+   - `table2_exim_margins.tex` replaces `table3_robust_eximbank.tex` (4-col wrapper)
+   - `table4_comtrade_robustness.tex` added as new appendix subsection
+   - Inline text updated in 7 locations (β values, Rotemberg industry C29/86.4%, Eximbank narrative reversal)
