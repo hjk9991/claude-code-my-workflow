@@ -258,3 +258,58 @@ Check git log and quality_reports/plans/ for current state.
 Phase F closes the 2026-04-15 empirical strengthening cycle. Remaining items
 (GTA manual export, ICIO manual drop) are blocked on user actions and will
 re-open in a future session.
+
+### Phase F-revision — Post three-agent review fixes
+
+Three independent reviewers (domain, STATA, proofreader) flagged convergent
+issues. Plan saved to `quality_reports/plans/2026-04-15_swing-state-revision.md`
+(and `~/.claude/plans/synthetic-forging-mochi.md`). Executed:
+
+- **STATA**:
+  - `04_leakage.do`: omitted 2017 as event-study base; added pre-trend joint
+    F-test (F(5,53)=8.90, p<0.001 — pre-trends significant, honestly disclosed
+    in §3.3); switched t1 to two-way cluster(partner_id year).
+  - `03_paradox_test.do`: removed year FE (collinearity with `lag_el`); added
+    post-2018 subsample (m3, m4); switched to robust SE (only 3 sector-panels
+    after CHN-USA filter, cluster too thin); added zero-drop accounting.
+  - `02_sigma_estimation.do`: framing-only edit. Renamed estimator to "robust
+    unit-value difference (directional)"; coefficients unchanged. Comments and
+    table title updated to disclose that we do not implement Feenstra GMM.
+
+- **New STATA results worth noting**:
+  - Paradox post-2018 × sector (m4): critical β = −0.217 (p<0.001) — the
+    cleanest test of Prop 2 and now strongly supportive.
+  - Pooled level (m1): +0.187 (p=0.005) — disclosed as long-run co-movement
+    artifact in the prose.
+  - Leakage triple-diff (t1): China×Critical×Post = −0.482 (SE 0.287, p=0.112)
+    — directionally consistent, statistically imprecise; reframed honestly.
+
+- **Manuscript (main.tex)**:
+  - §3.3 fully rewritten: new event-study coefficient range (−1.0 to −1.5
+    pre-2018, −0.3 to −0.9 post-2021), pre-trend F honest disclosure,
+    triple-diff p=0.112 stated transparently, paradox post-2018 result as
+    headline.
+  - Appendix B: replaced "Feenstra/Broda-Weinstein" with "robust unit-value
+    difference in the spirit of Feenstra"; corrected Feenstra identification
+    description to "heteroscedasticity across exporter varieties within an
+    HS code"; tense fix; cite Atalay (2017) and Boehm et al. (2019) for σ<1.
+  - **New Proposition 5 (Leakage Asymmetry)** added in §6 (after
+    Bargaining/Vertical Asymmetry, before kill-switch microfoundation), with
+    label `prop:leakage` and a one-paragraph proof sketch.
+  - Math notation fix: `L.\mathrm{EL}` → `\mathrm{EL}^{\text{CHN}}_{t-1}`.
+  - Replaced `\Cref{...}` with `Proposition~\ref{...}` (cleveref not loaded).
+
+- **ref.bib**: added `atalay2017import` (web-verified: AEJ:Macro 9(4),
+  254--280, 2017, doi 10.1257/mac.20160353).
+
+- **Compile**: clean 4-pass cycle. **51 pages, 0 undefined references,
+  0 undefined citations.**
+
+All 7 Phase-revision tasks (#23–#29) completed. STATA outputs regenerated:
+`leakage_triplediff.tex` (with pre-trend F row), `paradox_main.tex` (now 4
+columns), `leakage_event_study.pdf` (2017 base year).
+
+
+---
+**Context compaction (auto) at 08:10**
+Check git log and quality_reports/plans/ for current state.
