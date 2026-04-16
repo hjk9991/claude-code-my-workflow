@@ -81,3 +81,84 @@ a^j table from saved MATLAB output rather than hand-restored values.
 
 - [ ] Commit the changes (user decision).
 - [ ] At next opportunity, consider whether the skill-stratified appendix needs its own standalone slide set for discussant Q&A.
+
+
+---
+**Context compaction (auto) at 18:14**
+Check git log and quality_reports/plans/ for current state.
+
+
+---
+**Context compaction (auto) at 18:15**
+Check git log and quality_reports/plans/ for current state.
+
+
+---
+## Addendum (18:45): Substantive review findings addressed
+
+Per user direction after presenting four substantive domain-reviewer items, worked on three (deferred item 4 on $\kappa_s$ citation).
+
+### Task 1 — Prop 1' residual bound (analytical)
+
+Derived closed-form bound. In $S=2$, the wedge between skill-specific and composite wages is
+$\Delta\log w_{s,n}^k - \Delta\log w_{\mathrm{comp},n}^k = \beta_{s,k}\,\Delta\log(w_{H,n}^k/w_{L,n}^k)$
+with $\beta_{H,k}=1-\alpha_H^k$, $\beta_{L,k}=-\alpha_H^k$. Propagating through the Leontief IO inverse gives an explicit residual $R_{g,s} = \sum_{j,k} \alpha_i^j\tilde a_i^{jk}\gamma_{\mathrm{labor},i}^k\beta_{s,k}\Delta\log(w_H^k/w_L^k)$. Two bounds combine: (a) $|\beta_{s,k}|\le 1$ and Caliendo--Parro-style summability of the Leontief weight; (b) Cobb--Douglas FOC pins $\Delta\log(w_H^k/w_L^k) = \Delta\log(Z_L^k/Z_H^k)$ compressed by common Fréchet response. Added as `\paragraph{Residual bound.}` after Proposition~\ref{prop:welfare_skill} with new equation labels `eq_wedge` and `eq_residual`.
+
+### Task 2 — $w_{\mathrm{comp}}$ separability remark in §app:skill_model
+
+Added one paragraph after the Fréchet-preferences paragraph and before Proposition~\ref{prop:welfare_skill}: makes the chain-rule decomposition explicit, $\partial\log P_i^k/\partial\log w_{s,n}^j = (\partial\log P_i^k/\partial\log w_{\mathrm{comp},n}^j)\cdot(\partial\log w_{\mathrm{comp},n}^j/\partial\log w_{s,n}^j)$, and states that trade/MP channels are scalar rescalings of the $S=1$ operator with skill heterogeneity entering only through migration.
+
+### Task 3 — S=2 at a^j=0 and 0.5×XVEM (RESOLVED)
+
+Created `Model quantification/probe_low_a_j_s2.m`: bounded probe (max_iter=800) for both low corners under S=2, with try/catch around `calibrate.m` plus explicit residual classification. Modified `calibrate.m` to honor an optional `max_iter_override` so the probe can run quickly without altering the canonical 15000-iter budget. Backed up `calibration_skill_final.mat` before each corner run (calibrate.m saves unconditionally on exit, so an unsupervised probe would otherwise corrupt the canonical .mat).
+
+**Outcome — split:**
+- **a=0:** diverged. Korean residual stalls at 0.0186 around iter 400, drifts upward to 0.0279 by iter 800 (tolerance 0.012). Confirms the prior author's exclusion.
+- **a=0.5×XVEM:** converged at iter 409, korea=0.0120 (= tolerance), row=0.1196. Korea pooled gain +2.23%. The prior "ill-behaved" claim was overly pessimistic.
+
+**Action taken:**
+- Created `Model quantification/write_table_robustness_a_j_skill.m` — emitter that combines `robustness_a_j_s2.mat` (existing 5 cols: 1× through 5× XVEM) with `probe_low_a_j_s2.mat` (new 0.5× col) into a single 6-column table fragment. Decoupled from calibration so the table can be regenerated without rerun.
+- Regenerated `LaTeX/tables/table_robustness_a_j_skill.tex` (6 columns).
+- Updated main.tex appendix prose (l.1561–1565): footnote now excludes only a=0 with specific diagnostic numbers; first sentence now says "spanning $0.5\times$ to $5\times$"; numerical sentences updated to anchor at the new $0.5\times$ column ($+2.23\%$, differential $-0.53$~pp).
+- Compile clean: 97 pages, 0 undefined refs.
+
+### Verification status
+
+| Check | Result | Status |
+|-------|--------|--------|
+| Tasks 1, 2 LaTeX edits compile | 97 pages, 0 undefined refs | PASS |
+| Task 3 probe MATLAB run | a=0 diverged (diff_korea=0.028); 0.5×XVEM converged (diff_korea=0.012, +2.23%) | PASS (split outcome) |
+| Decoupled emitter regenerates table | 6-column table_robustness_a_j_skill.tex written from saved .mat files | PASS |
+| Final compile after Task 3 prose update | 97 pages, 0 undefined refs | PASS |
+| Canonical calibration_skill_final.mat preserved | Backed up to `.BACKUP_pre_probe_low.mat` and restored after probe | PASS |
+
+### Learnings (Tasks 1–3)
+
+- [LEARN:matlab] Long-running iterative solvers (`calibrate.m`, 15000-iter budget) need an `if ~exist('max_iter_override','var')` shim so diagnostic probes can cap iterations without editing the script. Cleaner than commenting out and remembering to revert.
+- [LEARN:workflow] Calibration scripts that unconditionally save to a canonical `.mat` on exit will corrupt that file when run in failure-probing mode. Either (a) gate the save on convergence, or (b) back up the canonical file before launching probes. We did (b); (a) is the right long-term fix.
+- [LEARN:econ-modeling] Footnotes that exclude parameter corners on "ill-behaved" grounds should always be re-tested when the underlying model changes (here: S=1 → S=2 calibration target dimension doubled). The prior exclusion of $0.5\times$ XVEM did not survive re-probing — convergence is achievable and yields a sensible $+2.23\%$ that strengthens the monotonic-and-concave narrative.
+
+
+---
+**Context compaction (auto) at 18:19**
+Check git log and quality_reports/plans/ for current state.
+
+
+---
+**Context compaction (auto) at 18:35**
+Check git log and quality_reports/plans/ for current state.
+
+
+---
+**Context compaction (auto) at 18:36**
+Check git log and quality_reports/plans/ for current state.
+
+
+---
+**Context compaction (auto) at 18:38**
+Check git log and quality_reports/plans/ for current state.
+
+
+---
+**Context compaction (auto) at 23:58**
+Check git log and quality_reports/plans/ for current state.
