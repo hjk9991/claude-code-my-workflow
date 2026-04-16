@@ -138,6 +138,26 @@ Created `Model quantification/probe_low_a_j_s2.m`: bounded probe (max_iter=800) 
 - [LEARN:workflow] Calibration scripts that unconditionally save to a canonical `.mat` on exit will corrupt that file when run in failure-probing mode. Either (a) gate the save on convergence, or (b) back up the canonical file before launching probes. We did (b); (a) is the right long-term fix.
 - [LEARN:econ-modeling] Footnotes that exclude parameter corners on "ill-behaved" grounds should always be re-tested when the underlying model changes (here: S=1 → S=2 calibration target dimension doubled). The prior exclusion of $0.5\times$ XVEM did not survive re-probing — convergence is achievable and yields a sensible $+2.23\%$ that strengthens the monotonic-and-concave narrative.
 
+---
+
+## Addendum (2026-04-17): Item 4 — κ_s citation reattribution
+
+The original split log deferred a domain-reviewer item flagging that `\citet{caliendo2019trade}` was attached to $\kappa_L=1.20$, $\kappa_H=1.80$ in the parameterization paragraph. Web verification confirms the citation is wrong on substance: CDP19 (Econometrica, not REStud) estimates a SINGLE migration elasticity ($\nu \approx 5.34$ quarterly) and does not split by skill. The do-file (`41_skill_matlab_inputs.do` l.269) compounded the error by also mislabelling the journal.
+
+Actual provenance of the values: a calibration designed to bracket the Roy--Fr\'echet shape parameter $\kappa \approx 1.5$ from \citet{galle2023slicing} (RestudY 2023) — already in `ref.bib` as `galle2023slicing` — with $\kappa_H > \kappa_L$ per the standard mobility-by-education pattern.
+
+**Action taken (Option A — reattribute to GRY):**
+- `LaTeX/main.tex` l.1534: replaced the CDP19 sentence with a GRY-bracketing rationale that names the shape parameter, justifies the H>L ordering, and notes KLIPS thinness as the reason for using literature values.
+- `Shift share analysis/scripts/41_skill_matlab_inputs.do` l.269–276: fixed the comment block to (a) credit GRY as the bracketing source, (b) explicitly state that CDP19 is NOT the source and why, (c) preserve the "above unity for $\eta$" requirement.
+- Compile clean: 97 pages, 0 undefined refs.
+
+**Why Option A over re-running the calibration with CDP19's $\nu$:** GRY's framework is conceptually closest (multi-sector gravity, worker groups, Roy--Fr\'echet labor allocation), the value bracketing was the calibration's actual logic, and changing the headline numbers would require re-running the full S=2 pipeline (~25 min) without strengthening the substantive argument.
+
+### Learnings (Item 4)
+
+- [LEARN:bib] Auto-saved Zotero bibkeys can be misleading. `caliendo2019trade` is the CDP19 China-shock paper in Econometrica, not the trade-policy survey CDP wrote separately. Always read the bib entry's `journal` and `title` fields before reusing a citation in a new context — bibkey alone is not provenance.
+- [LEARN:workflow] When a calibration fallback is "literature-anchored," the script comment, the manuscript citation, and the bib entry all need to agree on the source paper. Drift between the three (we had three different stories: do-file said "CDP19 REStud", manuscript said `\citet{caliendo2019trade}`, bib entry said Econometrica) is a referee magnet. Single-source the attribution from the start.
+
 
 ---
 **Context compaction (auto) at 18:19**
