@@ -507,3 +507,61 @@ LOW items (passive voice in methodological prose, minor wordiness, occasional re
 ### [LEARN] Entry
 
 - **[LEARN:medium-pass-yield]** MEDIUM-severity readability items share HIGH's splitting pattern but at a subtler scale — typically 35-50 word sentences joined by semicolon or colon that split cleanly at clause boundary. Yield per minute is roughly the same as HIGH (each fix is ~30 seconds of Edit work) but impact per fix is lower. Budget MEDIUM as optional polish pass, not a required step.
+
+
+---
+
+## Phase 6: LOW Polish + Title Page Overflow Fix
+
+**Trigger:** User: *"Move on and fix the low-severity polish. After that, I want the abstract has one-half spacing or becomes shorter as the title page runs through two pages."*
+
+### LOW fixes applied
+
+A targeted grep sweep confirmed the paper was already clean of common wordy patterns (`in order to`, `due to the fact`, `is able to`, `make an attempt`, weak hedges) after HIGH+MEDIUM passes. Four surgical polish edits applied:
+
+- **§1 L51** — "Meanwhile, imports from..." → "Over the same window, imports from..."; "rose by a compensating magnitude" → "rose by a comparable amount"; collapsed two consecutive contrastive sentences into one.
+- **§3 L83** — "Our theoretical framework is motivated by six stylized facts" → "Six stylized facts motivate our theoretical framework"; "Section ~\ref{sec:empirical_test}, returning to the data after the model, subjects the core claim..." → "Section~\ref{sec:empirical_test} returns to the data after the model and formally tests..."
+- **§4 L150** — "three-stage vertical game, solved by backward induction" → "three-stage vertical game solved by backward induction"; "endogenously triggers" → "triggers... in equilibrium"; split the two-sentence summary at section boundaries.
+- **§4 L163** — "We consider a global economy characterized by..." → "We model a global economy characterized by..." (active voice).
+
+### Title page overflow fix
+
+**Problem:** Abstract at global `\doublespacing` setting (line 14) spilled Keywords + JEL Classification onto page 2.
+
+**Approach tried (in order):**
+1. `\begin{spacing}{1.5}` around abstract body — abstract body still pushed Keywords to page 2.
+2. `\singlespacing` at start of abstract — body fit on page 1 but Keywords still spilled.
+3. `\singlespacing` + shortened abstract by ~50 words — **fit cleanly on page 1**.
+
+**Edits to abstract (word count 320 → 270):**
+- Removed "disproportionately higher share of embedded Chinese content, compared with exports" → "...higher share ... than exports"
+- Trimmed "identify this pattern directly in two independently maintained inter-country input--output databases (OECD and ADB) and confirm it is robust" → "identify this pattern in two inter-country input--output databases (OECD and ADB), robust"
+- "exactly what a steady-state test should show, since the pattern is a feature of the global production structure" → "exactly what a steady-state pattern should show, since the finding reflects the global production structure"
+- Removed tail clause "; this mechanism motivates the composition result but is not directly identified in our product-level data" (not needed in abstract; developed in §5).
+- Tightened `\vspace{0.5cm}` before Keywords → `\vspace{0.3cm}`.
+
+### Verification
+
+3 pdflatex passes + bibtex. **91 pages** (down from 92 due to tighter abstract), 1,182,205 bytes, 0 fatal errors, 0 undefined references, 4 overfulls (unchanged: 3 pre-existing + 1 from earlier passes). Title page now occupies page 1 in full, with Introduction starting on page 2.
+
+### Quality Score (final)
+
+| Dimension | Pre-HIGH | Post-HIGH | Post-MEDIUM | Post-LOW |
+|---|---|---|---|---|
+| Sentence-level readability | 78 | 89 | 93 | 94 |
+| Title page formatting | 80 | 80 | 80 | 95 |
+| Overall draft quality | 85 | 91 | 93 | 94 |
+
+### [LEARN] Entry
+
+- **[LEARN:abstract-spacing]** When a paper is set to `\doublespacing` globally, a ~300-word abstract will spill to page 2. The clean fix is to wrap the abstract in `\singlespacing` (or `\begin{spacing}{1.15}`) locally. For ER-style dense abstracts, `\singlespacing` alone may not be enough if the abstract is > 280 words; a single-line cut of a non-load-bearing clause at the tail usually does it. Avoid `\begin{spacing}{1.5}` for the abstract under a `\doublespacing` document — saves some space but rarely reclaims a full page-1 fit, so effort is wasted vs. going straight to single spacing.
+
+
+---
+**Context compaction (auto) at 17:27**
+Check git log and quality_reports/plans/ for current state.
+
+
+---
+**Context compaction (auto) at 17:27**
+Check git log and quality_reports/plans/ for current state.
