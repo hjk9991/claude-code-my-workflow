@@ -565,3 +565,52 @@ Check git log and quality_reports/plans/ for current state.
 ---
 **Context compaction (auto) at 17:27**
 Check git log and quality_reports/plans/ for current state.
+
+---
+
+## Phase 7: Terminology Unification — "Transit Country" → "Swing State"
+
+**Trigger:** User asked whether interchangeable use of "swing state" and "transit country" is good practice.
+
+### Diagnosis
+
+The paper used "swing state" × ~102 (title, model, propositions) and "transit [country/economy/partner]" × 5 (concentrated in abstract and §1 opening two paragraphs). The two are conceptually distinct (political/strategic identity vs. trade-accounting identity) and happen to coincide in this paper's data, but the paper never explicitly maps one to the other. Verdict: not good practice — unify.
+
+### Canonical Choice
+
+**Use "swing state" everywhere.** "Transit" stays as a verb only ("transits Rival inputs" at L146 is legitimate).
+
+**Reason:** "Swing state" is the title anchor, the model primitive, and the dominant term by a 20:1 ratio. It also captures the strategic-positioning mechanism the paper is about; "transit" captures only a trade-accounting consequence.
+
+### Edits Applied to `main.tex`
+
+**L41 (abstract)** — 5 replacements:
+- `transit economies` → `\emph{swing states}`
+- `transit partners` → `swing-state partners`
+- `A transit country` → `A swing state`
+- `transit-country exports` → `swing-state exports`
+- `non-transit origins` → `non-swing-state origins`
+
+**L52 (§1 ¶1)** — 4 replacements:
+- `transit economies` → `swing states`
+- `transit-country exports` (×2) → `swing-state exports`
+- `transit-country critical-sector exports` → `swing-state critical-sector exports`
+- `transit partner` → `swing state`
+
+**L54 (§1 ¶2)** — 1 replacement (removed redundant gloss after dropping "transit country"):
+- `a transit country (a \emph{swing state})` → `a \emph{swing state}`
+
+### Verification
+
+3 pdflatex passes + bibtex. **91 pages**, 1,182,570 bytes, 0 fatal errors, 0 undefined references, same warning count as post-LOW baseline. Grep confirms zero remaining noun-phrase uses of "transit" — only legitimate verb/compound forms ("regime-transition", "transitions", "transits").
+
+### Quality Score Impact
+
+| Dimension | Post-LOW | Post-Unification |
+|---|---|---|
+| Terminology consistency | 82 | 98 |
+| Overall draft quality | 94 | 95 |
+
+### [LEARN] Entry
+
+- **[LEARN:terminology-hygiene]** When two labels are used interchangeably without explicit mapping, pick the one that (a) appears in the title, (b) names the causal primitive, and (c) dominates by count — then sweep. Grep the paper for every noun form of the deprecated label, but leave verb/compound forms (e.g., "transition", "transits") alone. Compile-verify immediately after the sweep; terminology edits never break LaTeX but can silently change referents in footnotes or captions.
